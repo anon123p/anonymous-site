@@ -244,7 +244,7 @@
       box-shadow: 0 4px 14px rgba(18, 40, 70, .05);
     }
     #attn-videos-controls {
-      grid-template-columns: minmax(220px, 1.3fr) minmax(180px, 1fr);
+      grid-template-columns: minmax(220px, 1fr);
     }
     .attn-control label {
       display: block;
@@ -275,39 +275,45 @@
       margin-bottom: 16px;
       text-align: center;
     }
+    #attn-video-stack {
+      padding-left: 96px;
+    }
     .attn-rollout-row.with-slider {
-      display: grid;
-      grid-template-columns: 72px minmax(0, 1fr);
-      gap: 10px;
-      align-items: center;
+      position: relative;
     }
     .attn-slider-side {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      min-height: 160px;
+      position: absolute;
+      left: -96px;
+      top: 50%;
+      height: 108px;
+      transform: translateY(-50%);
+      width: 86px;
     }
     .attn-slider-value {
-      font-size: 11px;
-      color: var(--muted);
-      font-weight: 600;
-      line-height: 1;
-      min-height: 12px;
+      display: none;
     }
     .attn-layer-slider {
-      width: 130px;
+      position: absolute;
+      left: 62%;
+      top: 50%;
+      width: 92px;
       height: 20px;
-      transform: rotate(-90deg);
+      transform: translate(-50%, -50%) rotate(-90deg);
       transform-origin: center;
       cursor: pointer;
     }
     .attn-slider-hint {
+      position: absolute;
+      left: 0;
+      width: 34px;
       font-size: 10px;
       color: var(--muted);
       line-height: 1;
+      text-align: right;
     }
+    .attn-slider-hint.top { top: 0; }
+    .attn-slider-hint.middle { top: 38px; }
+    .attn-slider-hint.bottom { bottom: 0; }
     .attn-row-main {
       min-width: 0;
     }
@@ -386,23 +392,6 @@
       min-height: 86px;
       align-content: flex-start;
     }
-    .magnifier-toggle {
-      min-height: 36px;
-      padding: 7px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: white;
-      color: var(--fg);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
-      cursor: pointer;
-      font: inherit;
-      font-size: 13px;
-    }
-    .magnifier-toggle.active {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
     .magnifier-lens {
       position: fixed;
       display: none;
@@ -416,9 +405,11 @@
       background-color: white;
       box-shadow: 0 8px 28px rgba(0, 0, 0, .28);
     }
-    body.magnifier-enabled .rollout-row img,
-    body.magnifier-enabled .attn-rollout-row img {
+    .rollout-row img,
+    .attn-rollout-row img {
       cursor: zoom-in;
+      -webkit-user-drag: none;
+      user-select: none;
     }
     @media (max-width: 700px) {
       .grid-4 { grid-template-columns: 1fr; }
@@ -427,18 +418,38 @@
       .architecture-figure figcaption { max-width: 100%; }
       .method-row { grid-template-columns: 1fr; }
       .attn-controls { grid-template-columns: 1fr; }
+      #attn-video-stack {
+        padding-left: 0;
+      }
       .attn-rollout-row.with-slider {
-        grid-template-columns: 1fr;
+        padding-left: 0;
       }
       .attn-slider-side {
+        position: static;
+        width: auto;
+        margin-bottom: 8px;
         min-height: 0;
-        flex-direction: row;
-        justify-content: flex-start;
+        height: auto;
+        transform: none;
+        display: grid;
+        grid-template-columns: auto 160px auto auto;
+        gap: 8px;
+        align-items: center;
+        justify-content: start;
       }
       .attn-layer-slider {
+        position: static;
         width: 160px;
         height: 20px;
         transform: none;
+      }
+      .attn-slider-hint,
+      .attn-slider-value {
+        position: static;
+        text-align: left;
+      }
+      .attn-slider-value {
+        display: none;
       }
       .attn-video-grid { grid-template-columns: 1fr; }
       .dual-section-row { grid-template-columns: 1fr; }
@@ -536,10 +547,6 @@
       <label for="attn-env">MIKASA-Robo environment</label>
       <select id="attn-env"></select>
     </div>
-    <div class="attn-control">
-      <label>Zoom tool</label>
-      <button type="button" class="magnifier-toggle" aria-pressed="false">Magnifier: off</button>
-    </div>
   </div>
   <div class="instruction-note" id="attn-env-instruction"></div>
   <div id="attn-video-stack">
@@ -549,9 +556,10 @@
     </div>
     <div class="attn-rollout-row with-slider">
       <div class="attn-slider-side">
-        <div class="attn-slider-hint">mean</div>
+        <div class="attn-slider-hint top">L31</div>
         <input id="attn-memory-layer-slider" class="attn-layer-slider" type="range" min="0" max="32" step="1" value="0" aria-label="memory to vision layer slider">
-        <div class="attn-slider-hint">L31</div>
+        <div class="attn-slider-hint middle">L0</div>
+        <div class="attn-slider-hint bottom">mean</div>
         <div class="attn-slider-value" id="attn-memory-layer-value">mean</div>
       </div>
       <div class="attn-row-main">
@@ -561,9 +569,10 @@
     </div>
     <div class="attn-rollout-row with-slider">
       <div class="attn-slider-side">
-        <div class="attn-slider-hint">mean</div>
+        <div class="attn-slider-hint top">L31</div>
         <input id="attn-action-layer-slider" class="attn-layer-slider" type="range" min="0" max="32" step="1" value="0" aria-label="action to vision layer slider">
-        <div class="attn-slider-hint">L31</div>
+        <div class="attn-slider-hint middle">L0</div>
+        <div class="attn-slider-hint bottom">mean</div>
         <div class="attn-slider-value" id="attn-action-layer-value">mean</div>
       </div>
       <div class="attn-row-main">
@@ -577,8 +586,12 @@
   <p>Aggregated attention rollouts and frame-by-frame overlays for successful LIBERO-GOAL episodes. The attention maps are mean over layers and heads; per-layer dumps are not included for this suite.</p>
   <div class="attn-controls">
     <div class="attn-control">
-      <label>Zoom tool</label>
-      <button type="button" class="magnifier-toggle" aria-pressed="false">Magnifier: off</button>
+      <label for="libero-rollout-task">LIBERO task</label>
+      <select id="libero-rollout-task"></select>
+    </div>
+    <div class="attn-control">
+      <label for="libero-rollout-episode">LIBERO episode</label>
+      <select id="libero-rollout-episode"></select>
     </div>
   </div>
   <div id="libero-rollout-stack">
@@ -871,6 +884,30 @@
       return `L${n - 1}`;
     }
 
+    function bindLayerSlider(slider, valueEl, onLayerChange, onLayerCommit) {
+      let commitFrame = null;
+      const scheduleCommit = () => {
+        if (commitFrame !== null) return;
+        commitFrame = window.requestAnimationFrame(() => {
+          commitFrame = null;
+          onLayerCommit();
+        });
+      };
+      slider.addEventListener('input', () => {
+        const layer = sliderValueToLayer(slider.value);
+        if (valueEl) valueEl.textContent = sliderValueLabel(slider.value);
+        onLayerChange(layer);
+        scheduleCommit();
+      });
+      slider.addEventListener('change', () => {
+        if (commitFrame !== null) {
+          window.cancelAnimationFrame(commitFrame);
+          commitFrame = null;
+        }
+        onLayerCommit();
+      });
+    }
+
     function updateAttentionVideos() {
       const run = attnRuns.find(item => item.env === attnState.env) || attnRuns[0];
       const plainImg = document.getElementById('attn-plain-img');
@@ -971,16 +1008,12 @@
           updateAttentionOverlayVideos();
         });
       }
-      attnMemoryLayerSlider.addEventListener('input', () => {
-        attnState.memoryLayer = sliderValueToLayer(attnMemoryLayerSlider.value);
-        if (attnMemoryLayerValue) attnMemoryLayerValue.textContent = sliderValueLabel(attnMemoryLayerSlider.value);
-        updateAttentionVideos();
-      });
-      attnActionLayerSlider.addEventListener('input', () => {
-        attnState.actionLayer = sliderValueToLayer(attnActionLayerSlider.value);
-        if (attnActionLayerValue) attnActionLayerValue.textContent = sliderValueLabel(attnActionLayerSlider.value);
-        updateAttentionVideos();
-      });
+      bindLayerSlider(attnMemoryLayerSlider, attnMemoryLayerValue, layer => {
+        attnState.memoryLayer = layer;
+      }, updateAttentionVideos);
+      bindLayerSlider(attnActionLayerSlider, attnActionLayerValue, layer => {
+        attnState.actionLayer = layer;
+      }, updateAttentionVideos);
       syncAttnEnvSelects();
       updateAttentionVideos();
       updateAttentionOverlayVideos();
@@ -1018,7 +1051,10 @@
       { taskId: 9, episode: 1, description: 'put the wine bottle on the rack', score: '0.9600 (48/50)', dir: 'task_09_put_the_wine_bottle_on_the_rack/episode_01', steps: 123 },
       { taskId: 9, episode: 2, description: 'put the wine bottle on the rack', score: '0.9600 (48/50)', dir: 'task_09_put_the_wine_bottle_on_the_rack/episode_02', steps: 123 }
     ];
-    const liberoState = { taskId: 0, episode: 0 };
+    const liberoState = {
+      taskId: 0,
+      episode: 0
+    };
 
     function liberoBasePath(run) {
       return `videos/muVLA/libero_goal/${run.dir}`;
@@ -1033,17 +1069,35 @@
     }
 
     function populateLiberoEpisodes() {
-      const episodeSelect = document.getElementById('libero-episode');
-      if (!episodeSelect) return;
+      const episodeSelects = [
+        document.getElementById('libero-episode'),
+        document.getElementById('libero-rollout-episode')
+      ].filter(Boolean);
       const episodes = liberoRuns.filter(run => run.taskId === liberoState.taskId);
-      episodeSelect.innerHTML = '';
-      episodes.forEach(run => {
-        const option = document.createElement('option');
-        option.value = String(run.episode);
-        option.textContent = `Episode ${String(run.episode).padStart(2, '0')} (${run.steps} steps)`;
-        option.selected = run.episode === liberoState.episode;
-        episodeSelect.appendChild(option);
+      episodeSelects.forEach(episodeSelect => {
+        episodeSelect.innerHTML = '';
+        episodes.forEach(run => {
+          const option = document.createElement('option');
+          option.value = String(run.episode);
+          option.textContent = `Episode ${String(run.episode).padStart(2, '0')} (${run.steps} steps)`;
+          option.selected = run.episode === liberoState.episode;
+          episodeSelect.appendChild(option);
+        });
       });
+    }
+
+    function syncLiberoSelects() {
+      const taskSelects = [
+        document.getElementById('libero-task'),
+        document.getElementById('libero-rollout-task')
+      ].filter(Boolean);
+      const episodeSelects = [
+        document.getElementById('libero-episode'),
+        document.getElementById('libero-rollout-episode')
+      ].filter(Boolean);
+
+      taskSelects.forEach(select => { select.value = String(liberoState.taskId); });
+      episodeSelects.forEach(select => { select.value = String(liberoState.episode); });
     }
 
     function updateLiberoViewer() {
@@ -1087,35 +1141,50 @@
 
     const liberoTaskSelect = document.getElementById('libero-task');
     const liberoEpisodeSelect = document.getElementById('libero-episode');
-    if (liberoTaskSelect && liberoEpisodeSelect) {
-      const tasks = Array.from(new Map(liberoRuns.map(run => [run.taskId, run])).values());
-      tasks.forEach(run => {
-        const option = document.createElement('option');
-        option.value = String(run.taskId);
-        option.textContent = taskLabel(run);
-        option.selected = run.taskId === liberoState.taskId;
-        liberoTaskSelect.appendChild(option);
-      });
+    const liberoRolloutTaskSelect = document.getElementById('libero-rollout-task');
+    const liberoRolloutEpisodeSelect = document.getElementById('libero-rollout-episode');
+
+    function setLiberoTask(taskId) {
+      liberoState.taskId = Number(taskId);
+      const firstEpisode = liberoRuns.find(run => run.taskId === liberoState.taskId);
+      liberoState.episode = firstEpisode ? firstEpisode.episode : 0;
       populateLiberoEpisodes();
-      liberoTaskSelect.addEventListener('change', () => {
-        liberoState.taskId = Number(liberoTaskSelect.value);
-        const firstEpisode = liberoRuns.find(run => run.taskId === liberoState.taskId);
-        liberoState.episode = firstEpisode ? firstEpisode.episode : 0;
-        populateLiberoEpisodes();
-        updateLiberoViewer();
-      });
-      liberoEpisodeSelect.addEventListener('change', () => {
-        liberoState.episode = Number(liberoEpisodeSelect.value);
-        updateLiberoViewer();
-      });
+      syncLiberoSelects();
       updateLiberoViewer();
     }
 
-    const magnifierToggles = Array.from(document.querySelectorAll('.magnifier-toggle'));
+    function setLiberoEpisode(episode) {
+      liberoState.episode = Number(episode);
+      syncLiberoSelects();
+      updateLiberoViewer();
+    }
+
+    if (liberoTaskSelect && liberoEpisodeSelect) {
+      const tasks = Array.from(new Map(liberoRuns.map(run => [run.taskId, run])).values());
+      [liberoTaskSelect, liberoRolloutTaskSelect].filter(Boolean).forEach(taskSelect => {
+        tasks.forEach(run => {
+          const option = document.createElement('option');
+          option.value = String(run.taskId);
+          option.textContent = taskLabel(run);
+          option.selected = run.taskId === liberoState.taskId;
+          taskSelect.appendChild(option);
+        });
+      });
+      populateLiberoEpisodes();
+
+      [liberoTaskSelect, liberoRolloutTaskSelect].filter(Boolean).forEach(taskSelect => {
+        taskSelect.addEventListener('change', () => setLiberoTask(taskSelect.value));
+      });
+      [liberoEpisodeSelect, liberoRolloutEpisodeSelect].filter(Boolean).forEach(episodeSelect => {
+        episodeSelect.addEventListener('change', () => setLiberoEpisode(episodeSelect.value));
+      });
+      syncLiberoSelects();
+      updateLiberoViewer();
+    }
+
     const magnifierLens = document.getElementById('magnifier-lens');
     const magnifierZoom = 5.5;
     const magnifierTargets = '.rollout-row img, .attn-rollout-row img';
-    let magnifierActive = false;
     let magnifierImage = null;
 
     function hideMagnifierLens() {
@@ -1123,19 +1192,8 @@
       magnifierImage = null;
     }
 
-    function setMagnifierActive(nextActive) {
-      magnifierActive = nextActive;
-      document.body.classList.toggle('magnifier-enabled', magnifierActive);
-      magnifierToggles.forEach(toggle => {
-        toggle.classList.toggle('active', magnifierActive);
-        toggle.setAttribute('aria-pressed', String(magnifierActive));
-        toggle.textContent = magnifierActive ? 'Magnifier: on' : 'Magnifier: off';
-      });
-      if (!magnifierActive) hideMagnifierLens();
-    }
-
     function moveMagnifierLens(event, img) {
-      if (!magnifierActive || !magnifierLens) return;
+      if (!magnifierLens) return;
       const rect = img.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       const x = Math.max(0, Math.min(event.clientX - rect.left, rect.width));
@@ -1166,11 +1224,24 @@
       magnifierLens.style.backgroundPosition = `${-(x * magnifierZoom - lensWidth / 2)}px ${-(y * magnifierZoom - lensHeight / 2)}px`;
     }
 
-    if (magnifierToggles.length && magnifierLens) {
-      magnifierToggles.forEach(toggle => {
-        toggle.addEventListener('click', () => {
-          setMagnifierActive(!magnifierActive);
-        });
+    if (magnifierLens) {
+      document.querySelectorAll(magnifierTargets).forEach(img => {
+        img.draggable = false;
+      });
+      document.addEventListener('dragstart', event => {
+        if (event.target.closest && event.target.closest(magnifierTargets)) {
+          event.preventDefault();
+        }
+      });
+      document.addEventListener('pointerdown', event => {
+        if (event.target.closest && event.target.closest(magnifierTargets)) {
+          event.preventDefault();
+        }
+      });
+      document.addEventListener('click', event => {
+        if (event.target.closest && event.target.closest(magnifierTargets)) {
+          event.preventDefault();
+        }
       });
       document.addEventListener('pointermove', event => {
         const img = event.target.closest ? event.target.closest(magnifierTargets) : null;
