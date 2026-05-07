@@ -3,7 +3,7 @@
   "task_description": "put the bowl on the plate",
   "episode_idx": 0,
   "success": true,
-  "steps": 75,
+  "steps": 76,
   "patches_per_camera": 256,
   "num_cameras": 2,
   "patch_grid_hw": [
@@ -15,15 +15,15 @@
   "query_groups": [
     {
       "name": "vision_to_vision",
-      "steps_used": 75
+      "steps_used": 76
     },
     {
       "name": "action_first_to_vision",
-      "steps_used": 75
+      "steps_used": 76
     },
     {
       "name": "memory_to_vision",
-      "steps_used": 75
+      "steps_used": 76
     }
   ]
 }

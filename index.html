@@ -233,7 +233,7 @@
     }
     .attn-controls {
       display: grid;
-      grid-template-columns: minmax(220px, 1.3fr) minmax(180px, 1fr) minmax(180px, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 10px;
       align-items: end;
       padding: 12px;
@@ -484,6 +484,10 @@
       <select id="attn-video-env"></select>
     </div>
     <div class="attn-control">
+      <label for="libero-suite">LIBERO suite</label>
+      <select id="libero-suite"></select>
+    </div>
+    <div class="attn-control">
       <label for="libero-task">LIBERO task</label>
       <select id="libero-task"></select>
     </div>
@@ -582,9 +586,13 @@
     </div>
   </div>
 
-  <h2>LIBERO-GOAL attention rollouts</h2>
-  <p>Aggregated attention rollouts and frame-by-frame overlays for successful LIBERO-GOAL episodes. The attention maps are mean over layers and heads; per-layer dumps are not included for this suite.</p>
+  <h2>LIBERO attention rollouts</h2>
+  <p>Aggregated attention rollouts and frame-by-frame overlays for successful LIBERO episodes. Choose a suite, task, and episode; attention maps are mean over layers and heads.</p>
   <div class="attn-controls">
+    <div class="attn-control">
+      <label for="libero-rollout-suite">LIBERO suite</label>
+      <select id="libero-rollout-suite"></select>
+    </div>
     <div class="attn-control">
       <label for="libero-rollout-task">LIBERO task</label>
       <select id="libero-rollout-task"></select>
@@ -1019,7 +1027,13 @@
       updateAttentionOverlayVideos();
     }
 
-    const liberoRuns = [
+    const liberoSuites = [
+      { id: 'libero_spatial', label: 'libero_spatial' },
+      { id: 'libero_object', label: 'libero_object' },
+      { id: 'libero_goal', label: 'libero_goal' },
+      { id: 'libero_10', label: 'libero_10' }
+    ];
+    let liberoRuns = [
       { taskId: 0, episode: 0, description: 'open the middle drawer of the cabinet', score: '0.9800 (49/50)', dir: 'task_00_open_the_middle_drawer_of_the_cabinet/episode_00', steps: 120 },
       { taskId: 0, episode: 1, description: 'open the middle drawer of the cabinet', score: '0.9800 (49/50)', dir: 'task_00_open_the_middle_drawer_of_the_cabinet/episode_01', steps: 115 },
       { taskId: 0, episode: 2, description: 'open the middle drawer of the cabinet', score: '0.9800 (49/50)', dir: 'task_00_open_the_middle_drawer_of_the_cabinet/episode_02', steps: 111 },
@@ -1051,21 +1065,86 @@
       { taskId: 9, episode: 1, description: 'put the wine bottle on the rack', score: '0.9600 (48/50)', dir: 'task_09_put_the_wine_bottle_on_the_rack/episode_01', steps: 123 },
       { taskId: 9, episode: 2, description: 'put the wine bottle on the rack', score: '0.9600 (48/50)', dir: 'task_09_put_the_wine_bottle_on_the_rack/episode_02', steps: 123 }
     ];
+    liberoRuns = liberoRuns.map(run => ({ ...run, suite: 'libero_goal' }));
     const liberoState = {
+      suite: 'libero_goal',
       taskId: 0,
       episode: 0
     };
 
     function liberoBasePath(run) {
-      return `videos/muVLA/libero_goal/${run.dir}`;
+      return `videos/muVLA/${run.suite || liberoState.suite}/${run.dir}`;
     }
 
     function currentLiberoRun() {
-      return liberoRuns.find(run => run.taskId === liberoState.taskId && run.episode === liberoState.episode) || liberoRuns[0];
+      return liberoRuns.find(run => (run.suite || liberoState.suite) === liberoState.suite && run.taskId === liberoState.taskId && run.episode === liberoState.episode) || liberoRuns.find(run => (run.suite || liberoState.suite) === liberoState.suite) || liberoRuns[0];
     }
 
     function taskLabel(run) {
       return `Task ${String(run.taskId).padStart(2, '0')}: ${run.description}`;
+    }
+
+    function runsForCurrentSuite() {
+      return liberoRuns.filter(run => (run.suite || liberoState.suite) === liberoState.suite);
+    }
+
+    function normalizeLiberoSummary(suite, item) {
+      return {
+        suite,
+        taskId: item.task_id,
+        episode: item.episode_idx,
+        description: item.task_description,
+        dir: item.task_dir,
+        steps: item.steps
+      };
+    }
+
+    async function loadAllLiberoRuns() {
+      const loaded = [];
+      for (const suite of liberoSuites) {
+        const response = await fetch(`videos/muVLA/${suite.id}/all_summaries.json`);
+        if (!response.ok) throw new Error(`Failed to load ${suite.id}`);
+        const summaries = await response.json();
+        summaries.forEach(item => loaded.push(normalizeLiberoSummary(suite.id, item)));
+      }
+      if (loaded.length) {
+        liberoRuns = loaded;
+      }
+    }
+
+    function populateLiberoSuites() {
+      const suiteSelects = [
+        document.getElementById('libero-suite'),
+        document.getElementById('libero-rollout-suite')
+      ].filter(Boolean);
+      suiteSelects.forEach(select => {
+        select.innerHTML = '';
+        liberoSuites.forEach(suite => {
+          const option = document.createElement('option');
+          option.value = suite.id;
+          option.textContent = suite.label;
+          option.selected = suite.id === liberoState.suite;
+          select.appendChild(option);
+        });
+      });
+    }
+
+    function populateLiberoTasks() {
+      const taskSelects = [
+        document.getElementById('libero-task'),
+        document.getElementById('libero-rollout-task')
+      ].filter(Boolean);
+      const tasks = Array.from(new Map(runsForCurrentSuite().map(run => [run.taskId, run])).values());
+      taskSelects.forEach(taskSelect => {
+        taskSelect.innerHTML = '';
+        tasks.forEach(run => {
+          const option = document.createElement('option');
+          option.value = String(run.taskId);
+          option.textContent = taskLabel(run);
+          option.selected = run.taskId === liberoState.taskId;
+          taskSelect.appendChild(option);
+        });
+      });
     }
 
     function populateLiberoEpisodes() {
@@ -1073,7 +1152,7 @@
         document.getElementById('libero-episode'),
         document.getElementById('libero-rollout-episode')
       ].filter(Boolean);
-      const episodes = liberoRuns.filter(run => run.taskId === liberoState.taskId);
+      const episodes = runsForCurrentSuite().filter(run => run.taskId === liberoState.taskId);
       episodeSelects.forEach(episodeSelect => {
         episodeSelect.innerHTML = '';
         episodes.forEach(run => {
@@ -1087,6 +1166,10 @@
     }
 
     function syncLiberoSelects() {
+      const suiteSelects = [
+        document.getElementById('libero-suite'),
+        document.getElementById('libero-rollout-suite')
+      ].filter(Boolean);
       const taskSelects = [
         document.getElementById('libero-task'),
         document.getElementById('libero-rollout-task')
@@ -1096,6 +1179,7 @@
         document.getElementById('libero-rollout-episode')
       ].filter(Boolean);
 
+      suiteSelects.forEach(select => { select.value = liberoState.suite; });
       taskSelects.forEach(select => { select.value = String(liberoState.taskId); });
       episodeSelects.forEach(select => { select.value = String(liberoState.episode); });
     }
@@ -1136,17 +1220,32 @@
       if (actionLabel) actionLabel.textContent = 'action -> vision, aggregated over layers and heads';
       if (memoryVideoLabel) memoryVideoLabel.textContent = `${title}: memory -> vision overlay`;
       if (actionVideoLabel) actionVideoLabel.textContent = `${title}: action -> vision overlay`;
-      if (liberoInstruction) liberoInstruction.textContent = `LIBERO instruction: ${run.description} | Per-task SR: ${run.score}`;
+      if (liberoInstruction) liberoInstruction.textContent = `LIBERO suite: ${run.suite || liberoState.suite} | Instruction: ${run.description}${run.score ? ` | Per-task SR: ${run.score}` : ''}`;
     }
 
+    const liberoSuiteSelect = document.getElementById('libero-suite');
     const liberoTaskSelect = document.getElementById('libero-task');
     const liberoEpisodeSelect = document.getElementById('libero-episode');
+    const liberoRolloutSuiteSelect = document.getElementById('libero-rollout-suite');
     const liberoRolloutTaskSelect = document.getElementById('libero-rollout-task');
     const liberoRolloutEpisodeSelect = document.getElementById('libero-rollout-episode');
 
+    function setLiberoSuite(suite) {
+      liberoState.suite = suite;
+      const firstRun = runsForCurrentSuite()[0] || liberoRuns[0];
+      if (firstRun) {
+        liberoState.taskId = firstRun.taskId;
+        liberoState.episode = firstRun.episode;
+      }
+      populateLiberoTasks();
+      populateLiberoEpisodes();
+      syncLiberoSelects();
+      updateLiberoViewer();
+    }
+
     function setLiberoTask(taskId) {
       liberoState.taskId = Number(taskId);
-      const firstEpisode = liberoRuns.find(run => run.taskId === liberoState.taskId);
+      const firstEpisode = runsForCurrentSuite().find(run => run.taskId === liberoState.taskId);
       liberoState.episode = firstEpisode ? firstEpisode.episode : 0;
       populateLiberoEpisodes();
       syncLiberoSelects();
@@ -1160,18 +1259,13 @@
     }
 
     if (liberoTaskSelect && liberoEpisodeSelect) {
-      const tasks = Array.from(new Map(liberoRuns.map(run => [run.taskId, run])).values());
-      [liberoTaskSelect, liberoRolloutTaskSelect].filter(Boolean).forEach(taskSelect => {
-        tasks.forEach(run => {
-          const option = document.createElement('option');
-          option.value = String(run.taskId);
-          option.textContent = taskLabel(run);
-          option.selected = run.taskId === liberoState.taskId;
-          taskSelect.appendChild(option);
-        });
-      });
+      populateLiberoSuites();
+      populateLiberoTasks();
       populateLiberoEpisodes();
 
+      [liberoSuiteSelect, liberoRolloutSuiteSelect].filter(Boolean).forEach(suiteSelect => {
+        suiteSelect.addEventListener('change', () => setLiberoSuite(suiteSelect.value));
+      });
       [liberoTaskSelect, liberoRolloutTaskSelect].filter(Boolean).forEach(taskSelect => {
         taskSelect.addEventListener('change', () => setLiberoTask(taskSelect.value));
       });
@@ -1180,6 +1274,22 @@
       });
       syncLiberoSelects();
       updateLiberoViewer();
+      loadAllLiberoRuns().then(() => {
+        const currentRun = currentLiberoRun();
+        if (!currentRun || (currentRun.suite || liberoState.suite) !== liberoState.suite) {
+          const firstRun = runsForCurrentSuite()[0] || liberoRuns[0];
+          if (firstRun) {
+            liberoState.suite = firstRun.suite || liberoState.suite;
+            liberoState.taskId = firstRun.taskId;
+            liberoState.episode = firstRun.episode;
+          }
+        }
+        populateLiberoSuites();
+        populateLiberoTasks();
+        populateLiberoEpisodes();
+        syncLiberoSelects();
+        updateLiberoViewer();
+      }).catch(() => {});
     }
 
     const magnifierLens = document.getElementById('magnifier-lens');

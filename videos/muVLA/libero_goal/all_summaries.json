@@ -4,7 +4,7 @@
     "task_description": "open the middle drawer of the cabinet",
     "episode_idx": 0,
     "success": true,
-    "steps": 120,
+    "steps": 118,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -16,15 +16,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 120
+        "steps_used": 118
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 120
+        "steps_used": 118
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 120
+        "steps_used": 118
       }
     ],
     "task_dir": "task_00_open_the_middle_drawer_of_the_cabinet/episode_00"
@@ -34,7 +34,7 @@
     "task_description": "open the middle drawer of the cabinet",
     "episode_idx": 1,
     "success": true,
-    "steps": 115,
+    "steps": 117,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -46,15 +46,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 115
+        "steps_used": 117
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 115
+        "steps_used": 117
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 115
+        "steps_used": 117
       }
     ],
     "task_dir": "task_00_open_the_middle_drawer_of_the_cabinet/episode_01"
@@ -64,7 +64,7 @@
     "task_description": "open the middle drawer of the cabinet",
     "episode_idx": 2,
     "success": true,
-    "steps": 111,
+    "steps": 110,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -76,15 +76,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 111
+        "steps_used": 110
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 111
+        "steps_used": 110
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 111
+        "steps_used": 110
       }
     ],
     "task_dir": "task_00_open_the_middle_drawer_of_the_cabinet/episode_02"
@@ -124,7 +124,7 @@
     "task_description": "put the bowl on the stove",
     "episode_idx": 1,
     "success": true,
-    "steps": 85,
+    "steps": 84,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -136,15 +136,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 85
+        "steps_used": 84
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 85
+        "steps_used": 84
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 85
+        "steps_used": 84
       }
     ],
     "task_dir": "task_01_put_the_bowl_on_the_stove/episode_01"
@@ -152,9 +152,9 @@
   {
     "task_id": 1,
     "task_description": "put the bowl on the stove",
-    "episode_idx": 3,
+    "episode_idx": 2,
     "success": true,
-    "steps": 89,
+    "steps": 78,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -166,25 +166,25 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 89
+        "steps_used": 78
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 89
+        "steps_used": 78
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 89
+        "steps_used": 78
       }
     ],
-    "task_dir": "task_01_put_the_bowl_on_the_stove/episode_03"
+    "task_dir": "task_01_put_the_bowl_on_the_stove/episode_02"
   },
   {
     "task_id": 2,
     "task_description": "put the wine bottle on top of the cabinet",
     "episode_idx": 0,
     "success": true,
-    "steps": 77,
+    "steps": 76,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -196,15 +196,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 77
+        "steps_used": 76
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 77
+        "steps_used": 76
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 77
+        "steps_used": 76
       }
     ],
     "task_dir": "task_02_put_the_wine_bottle_on_top_of_the_cabinet/episode_00"
@@ -244,7 +244,7 @@
     "task_description": "put the wine bottle on top of the cabinet",
     "episode_idx": 2,
     "success": true,
-    "steps": 91,
+    "steps": 90,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -256,15 +256,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 91
+        "steps_used": 90
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 91
+        "steps_used": 90
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 91
+        "steps_used": 90
       }
     ],
     "task_dir": "task_02_put_the_wine_bottle_on_top_of_the_cabinet/episode_02"
@@ -274,7 +274,7 @@
     "task_description": "open the top drawer and put the bowl inside",
     "episode_idx": 0,
     "success": true,
-    "steps": 177,
+    "steps": 175,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -286,15 +286,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 177
+        "steps_used": 175
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 177
+        "steps_used": 175
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 177
+        "steps_used": 175
       }
     ],
     "task_dir": "task_03_open_the_top_drawer_and_put_the_bowl_inside/episode_00"
@@ -303,36 +303,6 @@
     "task_id": 3,
     "task_description": "open the top drawer and put the bowl inside",
     "episode_idx": 1,
-    "success": true,
-    "steps": 173,
-    "patches_per_camera": 256,
-    "num_cameras": 2,
-    "patch_grid_hw": [
-      16,
-      16
-    ],
-    "num_layers": 32,
-    "aggregation": "mean over layers + heads (per_layer dump skipped)",
-    "query_groups": [
-      {
-        "name": "vision_to_vision",
-        "steps_used": 173
-      },
-      {
-        "name": "action_first_to_vision",
-        "steps_used": 173
-      },
-      {
-        "name": "memory_to_vision",
-        "steps_used": 173
-      }
-    ],
-    "task_dir": "task_03_open_the_top_drawer_and_put_the_bowl_inside/episode_01"
-  },
-  {
-    "task_id": 3,
-    "task_description": "open the top drawer and put the bowl inside",
-    "episode_idx": 2,
     "success": true,
     "steps": 174,
     "patches_per_camera": 256,
@@ -357,14 +327,14 @@
         "steps_used": 174
       }
     ],
-    "task_dir": "task_03_open_the_top_drawer_and_put_the_bowl_inside/episode_02"
+    "task_dir": "task_03_open_the_top_drawer_and_put_the_bowl_inside/episode_01"
   },
   {
-    "task_id": 4,
-    "task_description": "put the bowl on top of the cabinet",
-    "episode_idx": 0,
+    "task_id": 3,
+    "task_description": "open the top drawer and put the bowl inside",
+    "episode_idx": 2,
     "success": true,
-    "steps": 84,
+    "steps": 172,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -376,23 +346,23 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 84
+        "steps_used": 172
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 84
+        "steps_used": 172
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 84
+        "steps_used": 172
       }
     ],
-    "task_dir": "task_04_put_the_bowl_on_top_of_the_cabinet/episode_00"
+    "task_dir": "task_03_open_the_top_drawer_and_put_the_bowl_inside/episode_02"
   },
   {
     "task_id": 4,
     "task_description": "put the bowl on top of the cabinet",
-    "episode_idx": 1,
+    "episode_idx": 0,
     "success": true,
     "steps": 87,
     "patches_per_camera": 256,
@@ -417,14 +387,14 @@
         "steps_used": 87
       }
     ],
-    "task_dir": "task_04_put_the_bowl_on_top_of_the_cabinet/episode_01"
+    "task_dir": "task_04_put_the_bowl_on_top_of_the_cabinet/episode_00"
   },
   {
     "task_id": 4,
     "task_description": "put the bowl on top of the cabinet",
-    "episode_idx": 2,
+    "episode_idx": 1,
     "success": true,
-    "steps": 84,
+    "steps": 85,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -436,15 +406,45 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 84
+        "steps_used": 85
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 84
+        "steps_used": 85
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 84
+        "steps_used": 85
+      }
+    ],
+    "task_dir": "task_04_put_the_bowl_on_top_of_the_cabinet/episode_01"
+  },
+  {
+    "task_id": 4,
+    "task_description": "put the bowl on top of the cabinet",
+    "episode_idx": 2,
+    "success": true,
+    "steps": 83,
+    "patches_per_camera": 256,
+    "num_cameras": 2,
+    "patch_grid_hw": [
+      16,
+      16
+    ],
+    "num_layers": 32,
+    "aggregation": "mean over layers + heads (per_layer dump skipped)",
+    "query_groups": [
+      {
+        "name": "vision_to_vision",
+        "steps_used": 83
+      },
+      {
+        "name": "action_first_to_vision",
+        "steps_used": 83
+      },
+      {
+        "name": "memory_to_vision",
+        "steps_used": 83
       }
     ],
     "task_dir": "task_04_put_the_bowl_on_top_of_the_cabinet/episode_02"
@@ -454,7 +454,7 @@
     "task_description": "push the plate to the front of the stove",
     "episode_idx": 0,
     "success": true,
-    "steps": 141,
+    "steps": 143,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -466,15 +466,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 141
+        "steps_used": 143
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 141
+        "steps_used": 143
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 141
+        "steps_used": 143
       }
     ],
     "task_dir": "task_05_push_the_plate_to_the_front_of_the_stove/episode_00"
@@ -514,7 +514,7 @@
     "task_description": "push the plate to the front of the stove",
     "episode_idx": 2,
     "success": true,
-    "steps": 132,
+    "steps": 138,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -526,15 +526,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 132
+        "steps_used": 138
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 132
+        "steps_used": 138
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 132
+        "steps_used": 138
       }
     ],
     "task_dir": "task_05_push_the_plate_to_the_front_of_the_stove/episode_02"
@@ -574,7 +574,7 @@
     "task_description": "put the cream cheese in the bowl",
     "episode_idx": 1,
     "success": true,
-    "steps": 89,
+    "steps": 90,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -586,15 +586,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 89
+        "steps_used": 90
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 89
+        "steps_used": 90
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 89
+        "steps_used": 90
       }
     ],
     "task_dir": "task_06_put_the_cream_cheese_in_the_bowl/episode_01"
@@ -604,7 +604,7 @@
     "task_description": "put the cream cheese in the bowl",
     "episode_idx": 2,
     "success": true,
-    "steps": 92,
+    "steps": 91,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -616,15 +616,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 92
+        "steps_used": 91
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 92
+        "steps_used": 91
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 92
+        "steps_used": 91
       }
     ],
     "task_dir": "task_06_put_the_cream_cheese_in_the_bowl/episode_02"
@@ -634,7 +634,7 @@
     "task_description": "turn on the stove",
     "episode_idx": 0,
     "success": true,
-    "steps": 85,
+    "steps": 81,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -646,15 +646,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 85
+        "steps_used": 81
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 85
+        "steps_used": 81
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 85
+        "steps_used": 81
       }
     ],
     "task_dir": "task_07_turn_on_the_stove/episode_00"
@@ -664,7 +664,7 @@
     "task_description": "turn on the stove",
     "episode_idx": 1,
     "success": true,
-    "steps": 80,
+    "steps": 81,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -676,15 +676,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 80
+        "steps_used": 81
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 80
+        "steps_used": 81
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 80
+        "steps_used": 81
       }
     ],
     "task_dir": "task_07_turn_on_the_stove/episode_01"
@@ -724,7 +724,7 @@
     "task_description": "put the bowl on the plate",
     "episode_idx": 0,
     "success": true,
-    "steps": 75,
+    "steps": 76,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -736,15 +736,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 75
+        "steps_used": 76
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 75
+        "steps_used": 76
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 75
+        "steps_used": 76
       }
     ],
     "task_dir": "task_08_put_the_bowl_on_the_plate/episode_00"
@@ -754,7 +754,7 @@
     "task_description": "put the bowl on the plate",
     "episode_idx": 1,
     "success": true,
-    "steps": 78,
+    "steps": 67,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -766,15 +766,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 78
+        "steps_used": 67
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 78
+        "steps_used": 67
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 78
+        "steps_used": 67
       }
     ],
     "task_dir": "task_08_put_the_bowl_on_the_plate/episode_01"
@@ -814,7 +814,7 @@
     "task_description": "put the wine bottle on the rack",
     "episode_idx": 0,
     "success": true,
-    "steps": 136,
+    "steps": 127,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -826,15 +826,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 136
+        "steps_used": 127
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 136
+        "steps_used": 127
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 136
+        "steps_used": 127
       }
     ],
     "task_dir": "task_09_put_the_wine_bottle_on_the_rack/episode_00"
@@ -844,7 +844,7 @@
     "task_description": "put the wine bottle on the rack",
     "episode_idx": 1,
     "success": true,
-    "steps": 123,
+    "steps": 126,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -856,15 +856,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 123
+        "steps_used": 126
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 123
+        "steps_used": 126
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 123
+        "steps_used": 126
       }
     ],
     "task_dir": "task_09_put_the_wine_bottle_on_the_rack/episode_01"
@@ -874,7 +874,7 @@
     "task_description": "put the wine bottle on the rack",
     "episode_idx": 2,
     "success": true,
-    "steps": 123,
+    "steps": 130,
     "patches_per_camera": 256,
     "num_cameras": 2,
     "patch_grid_hw": [
@@ -886,15 +886,15 @@
     "query_groups": [
       {
         "name": "vision_to_vision",
-        "steps_used": 123
+        "steps_used": 130
       },
       {
         "name": "action_first_to_vision",
-        "steps_used": 123
+        "steps_used": 130
       },
       {
         "name": "memory_to_vision",
-        "steps_used": 123
+        "steps_used": 130
       }
     ],
     "task_dir": "task_09_put_the_wine_bottle_on_the_rack/episode_02"

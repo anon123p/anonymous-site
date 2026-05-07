@@ -3,7 +3,7 @@
   "task_description": "turn on the stove",
   "episode_idx": 1,
   "success": true,
-  "steps": 80,
+  "steps": 81,
   "patches_per_camera": 256,
   "num_cameras": 2,
   "patch_grid_hw": [
@@ -15,15 +15,15 @@
   "query_groups": [
     {
       "name": "vision_to_vision",
-      "steps_used": 80
+      "steps_used": 81
     },
     {
       "name": "action_first_to_vision",
-      "steps_used": 80
+      "steps_used": 81
     },
     {
       "name": "memory_to_vision",
-      "steps_used": 80
+      "steps_used": 81
     }
   ]
 }
